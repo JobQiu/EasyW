@@ -78,10 +78,13 @@
 	
 	<!-- dao layer start-->
 	<bean id="userDaoImpl" class="com.qcm.dao.impl.UserDaoImpl" ></bean>
+	<bean id="wordDaoImpl" class="com.qcm.dao.impl.WordDaoImpl" ></bean>
 	<!-- dao layer end-->
 	
 	<!-- entity layer start-->
 	<!-- entity layer end-->
+	<!-- util start -->
+	<!-- util end -->
 	
 	<!-- learn start -->
 	<bean id="person" class = "com.qcm.other.learnPPFB.Person" 

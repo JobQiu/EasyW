@@ -65,6 +65,8 @@ public class UserDaoImpl implements IUserDao {
 
 		user.setPwd("rwq");
 		System.out.println(userDaoImpl.checkUser(user));
+		System.out
+				.println(userDaoImpl.isEmailRegistered("qcm32771787@163.com"));
 
 	}
 	@Override
@@ -90,6 +92,22 @@ public class UserDaoImpl implements IUserDao {
 		if (aUser == null || (!aUser.getPwd().equals(user.getPwd())))
 			return false;
 		return true;
+	}
+
+	@Override
+	public boolean isEmailRegistered(String email) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		List<User> users = session.createQuery(
+				"select distinct u from User u where email='" + email + "'")
+				.list();
+		transaction.commit();
+		session.close();
+		if (users.size() > 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

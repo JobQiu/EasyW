@@ -23,4 +23,9 @@ public interface IUserDao {
 	 * @author JobQ
 	 * */
 	boolean checkUser(User user);
+	/**
+	 * check if the email has been registered!
+	 * @author JobQ
+	 * */
+	boolean isEmailRegistered(String email);
 }

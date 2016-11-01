@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ page isELIgnored="false" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -20,6 +21,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 
+<script type="text/javascript" src="resource/jquery-1.7.1.js"></script>
+<script type="text/javascript">
+$(function(){
+
+	$('#captchaImage').click(function() {
+			$('#captchaImage').attr("src", "captcha.form?timestamp=" + (new Date()).valueOf());
+	}); 
+	
+	$('#name').focusout(function(){
+		$.ajax({
+			url:"<%=basePath%>checkUsernameExists",
+			type:"post",
+			data:{"username":$("#name").val()},
+			success:function(data){	
+				$('#nameCheck').html(data);
+			}
+		})
+	})
+	
+	$('#email').focusout(function(){
+		$.ajax({
+			url:"<%=basePath%>checkEmail",
+			type:"post",
+			data:{"email":$("#email").val()},
+			success:function(data){	
+				$('#emailCheck').html(data);
+			}
+		})
+	})
+})
+
+</script>
   </head>
   
   <body>
@@ -32,7 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <table>
   	<tr>
   	<td>Username:</td>
-  	<td>  <input type="text" name="name"/></td>
+  	<td>  <input type="text" id="name" name="name"/></td>
+  	<td><p id="nameCheck"></p></td>
   	</tr>
   	<tr>
   	<td>Password:</td>
@@ -45,7 +79,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
   	<tr>
   	<td>Email:</td>
-  	<td>  <input type="text" name="email" /></td>
+  	<td>  <input type="text" id="email" name="email" /></td>
+  	<td><p id="emailCheck"></p></td>
+  	</tr>
+  	<tr>
+  	<td>Verification code:</td>
+  		<td><input type="text" id="captcha" name="captcha" class="text" maxlength="10" /></td>
+  	
+  		<td> <img id="captchaImage" src="captcha.form"/> Click me</td>
   	</tr>
   </table>
   
