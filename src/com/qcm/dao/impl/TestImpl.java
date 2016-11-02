@@ -1,8 +1,5 @@
 package com.qcm.dao.impl;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -10,11 +7,18 @@ public class TestImpl {
 	public static void main(String[] args) {
 		ApplicationContext a = new ClassPathXmlApplicationContext(
 				"springmvc-servlet.xml");
-		WordDaoImpl w = a.getBean(WordDaoImpl.class, "wordDaoImpl");
-		Map<String, Integer> test = w.getSynonymByWord("water");
-		for (Entry<String, Integer> iterable_element : test.entrySet()) {
-			System.out.println(iterable_element.getKey() + "="
-					+ iterable_element.getValue());
+		// WordDaoImpl w = a.getBean(WordDaoImpl.class, "wordDaoImpl");
+		// Map<String, Integer> test = w.getSynonymByWord("water");
+		// for (Entry<String, Integer> iterable_element : test.entrySet()) {
+		// System.out.println(iterable_element.getKey() + "="
+		// + iterable_element.getValue());
+		// }
+		IgnoredWordDaoImpl w = a.getBean(IgnoredWordDaoImpl.class,
+				"ignoredWordDaoImpl");
+		String[] words = { "wonderful", "me", "the" };
+		words = w.removeIgnored(words);
+		for (String string : words) {
+			System.out.println(string);
 		}
 		// String synonyms = w.getSynonymById(2);
 		// System.out.println(synonyms);

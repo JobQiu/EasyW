@@ -15,7 +15,7 @@ public class TestSyno {
 
 		SynonymUtil s = applicationContext.getBean(SynonymUtil.class,
 				"synonymUtil");
-		s.setWord("job");
+		s.setWord("oth-er");
 		Thread t = new Thread(s);
 		t.start();
 		// SynonymUtil s2 = new SynonymUtil("bad");

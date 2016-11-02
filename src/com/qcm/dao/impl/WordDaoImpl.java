@@ -1,5 +1,6 @@
 package com.qcm.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,7 +44,7 @@ public class WordDaoImpl implements IWordDao {
 		// wordDaoImpl.insertWord(word);
 		// WordEntity word = wordDaoImpl.getWordEntityByWord("dew");
 		// System.out.println(word.getId());
-		System.out.println(wordDaoImpl.getSynonymByWord("other"));
+		System.out.println(wordDaoImpl.getSynonymByWord("any"));
 	}
 	@Resource
 	private SessionFactory sessionFactory;
@@ -130,16 +131,23 @@ public class WordDaoImpl implements IWordDao {
 		return wordEntity;
 	}
 
+	private SynonymUtil insertSyno(String word) {
+		SynonymUtil s = new SynonymUtil(word);
+		s.setWordE(new WordEntity());
+		s.setWordDaoImpl(this);
+		Thread thread = new Thread(s);
+		thread.run();
+		System.out.println("xingxi" + s.getInfo());
+		return s;
+	}
 	@Override
 	public LinkedHashMap<String, Integer> getSynonymByWord(String word) {
-		// TODO Auto-generated method stub
 		WordEntity wordEntity = getWordEntityByWord(word);
 		if (wordEntity == null) {
-			SynonymUtil s = new SynonymUtil(word);
-			s.setWordE(new WordEntity());
-			s.setWordDaoImpl(this);
-			Thread thread = new Thread(s);
-			thread.run();
+			SynonymUtil s = insertSyno(word);
+			if (s.getInfo().equals("There is no this word, please check.")) {
+				return null;
+			}
 		}
 		wordEntity = getWordEntityByWord(word);
 		String synonyms = wordEntity.getWord_synonym();
@@ -151,5 +159,36 @@ public class WordDaoImpl implements IWordDao {
 		return res;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<WordEntity> getWordByWords(List<String> words) {
+		// TODO Auto-generated method stub
+		String[] wordss = words.toArray(new String[words.size()]);
+		Session session = openSession();
+		Transaction transaction = session.beginTransaction();
+		List<WordEntity> results = session.createQuery(
+				"select distinct w from WordEntity w where WORD in "
+						+ StringUtil.stringArray2Mysql(wordss)).list();
+		// System.out.println(StringUtil.stringArray2Mysql(words));
+		transaction.commit();
+		// System.out.println(results.size());
+		List<String> have = new ArrayList<String>();
+		for (WordEntity wordEntity : results) {
+			have.add(wordEntity.getWord());
+		}
+		for (String string : words) {
+			if (!have.contains(string)) {
+				insertSyno(string);
+			}
+		}
+		transaction = session.beginTransaction();
+		results = session.createQuery(
+				"select distinct w from WordEntity w where WORD in "
+						+ StringUtil.stringArray2Mysql(wordss)).list();
+		// System.out.println(StringUtil.stringArray2Mysql(words));
+		transaction.commit();
+		session.close();
+		return results;
+	}
 
 }

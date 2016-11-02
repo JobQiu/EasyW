@@ -1,8 +1,9 @@
 package com.qcm.util;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
+import com.qcm.constant.Constant;
 
 /**
  * @author JobQ
@@ -43,6 +44,14 @@ public class StringUtil {
 		return string;
 	}
 
+	public static String stringArray2Mysql(String[] words) {
+		String result = Arrays.toString(words);
+		result = result.replace("[", "('");
+		result = result.replace(",", "','");
+		result = result.replace("]", "')");
+		result = result.replace(" ", "");
+		return result;
+	}
 	/**
 	 * String to linkedhashmap<string, integer>
 	 * */
@@ -64,10 +73,18 @@ public class StringUtil {
 
 	public static void main(String[] args) {
 		String string = "{\"field\":0,\"work\":0,\"employment\":0,\"trade\":0,\"function\":0,\"dodge\":0,\"livelihood\":0,\"career\":0}";
-		LinkedHashMap<String, Integer> hhHashMap = string2LinkedHashMap(string);
-		for (Entry<String, Integer> string2 : hhHashMap.entrySet()) {
-			System.out.println(string2.getKey() + "=" + string2.getValue());
+		// LinkedHashMap<String, Integer> hhHashMap =
+		// string2LinkedHashMap(string);
+		// for (Entry<String, Integer> string2 : hhHashMap.entrySet()) {
+		// System.out.println(string2.getKey() + "=" + string2.getValue());
+		// }
+		System.out.println(dealWord(string));
+	}
+	public static String dealWord(String word) {
+		for (String s : Constant.FILTER_CHAR) {
+			word = word.replace(s, "");
 		}
+		return word;
 	}
 }
 

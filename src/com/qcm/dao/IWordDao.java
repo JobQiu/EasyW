@@ -42,4 +42,9 @@ public interface IWordDao {
 	 * get the word's synonym and its usage times
 	 * */
 	public LinkedHashMap<String, Integer> getSynonymByWord(String word);
+
+	/**
+	 * get words' entity by String array
+	 * */
+	public List<WordEntity> getWordByWords(List<String> words);
 }

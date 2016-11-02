@@ -79,6 +79,11 @@
 	<!-- dao layer start-->
 	<bean id="userDaoImpl" class="com.qcm.dao.impl.UserDaoImpl" ></bean>
 	<bean id="wordDaoImpl" class="com.qcm.dao.impl.WordDaoImpl" ></bean>
+	<bean id="sentenceDaoImpl" class="com.qcm.dao.impl.SentenceDaoImpl"
+		p:wordDaoImpl-ref="wordDaoImpl"
+		p:ignoredWordDaoImpl-ref="ignoredWordDaoImpl"
+	></bean>
+	<bean id="ignoredWordDaoImpl" class="com.qcm.dao.impl.IgnoredWordDaoImpl"></bean>
 	<!-- dao layer end-->
 	
 	<!-- entity layer start-->

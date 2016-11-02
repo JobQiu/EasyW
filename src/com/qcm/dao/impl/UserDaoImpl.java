@@ -94,6 +94,7 @@ public class UserDaoImpl implements IUserDao {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isEmailRegistered(String email) {
 		// TODO Auto-generated method stub

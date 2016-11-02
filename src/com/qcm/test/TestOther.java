@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.alibaba.fastjson.JSON;
+import com.qcm.util.StringUtil;
 
 public class TestOther {
 	public static void main(String[] args) {
@@ -13,5 +14,7 @@ public class TestOther {
 		for (Entry<String, Integer> e : re.entrySet()) {
 			System.out.println(e.getKey());
 		}
-}
+		String[] rr = { "123", "fe4" };
+		System.out.println(StringUtil.stringArray2Mysql(rr));
+	}
 }

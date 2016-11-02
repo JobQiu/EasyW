@@ -15,7 +15,7 @@ import com.qcm.entity.WordEntity;
 
 public class SynonymUtil extends Thread {
 	private String word = "bad";
-	private String info;
+	private String info = "test";
 	private WordEntity wordE;
 	private WordDaoImpl wordDaoImpl;
 	public SynonymUtil() {
