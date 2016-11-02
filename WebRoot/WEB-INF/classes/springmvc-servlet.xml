@@ -82,8 +82,12 @@
 	<!-- dao layer end-->
 	
 	<!-- entity layer start-->
+	<bean id="wordEntity" class="com.qcm.entity.WordEntity" />
 	<!-- entity layer end-->
 	<!-- util start -->
+	<bean id="synonymUtil" class="com.qcm.util.SynonymUtil" p:wordE-ref="wordEntity"
+	p:wordDaoImpl-ref="wordDaoImpl"
+	></bean>
 	<!-- util end -->
 	
 	<!-- learn start -->

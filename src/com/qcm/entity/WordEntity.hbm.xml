@@ -13,7 +13,7 @@
         <property name="word" type="java.lang.String">
             <column name="WORD" />
         </property>
-        <property name="word_prototype" type="java.lang.String">
+        <property name="word_prototype" type="java.lang.Integer">
             <column name="WORD_PROTOTYPE"  />
         </property>
 		<property name="word_synonym" type="java.lang.String">

@@ -1,6 +1,12 @@
 package com.qcm.util;
 
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
+
+/**
+ * @author JobQ
+ * */
 public class StringUtil {
 	
 	/**
@@ -26,4 +32,42 @@ public class StringUtil {
 		}
 		return integer;
 	}
+
+	/**
+	 * string to mysql
+	 * */
+	public static String string2Mysql(String string) {
+		string = string.replace("[", "\\[");
+		string = string.replace("]", "\\]");
+		string = string.replace("\"", "\\\"");
+		return string;
+	}
+
+	/**
+	 * String to linkedhashmap<string, integer>
+	 * */
+	public static LinkedHashMap<String, Integer> string2LinkedHashMap(
+			String string) {
+		LinkedHashMap<String, Integer> result = new LinkedHashMap<String, Integer>();
+		string = string.replace('{', ' ');
+		string = string.replace('}', ' ');
+		string = string.replace('"', ' ');
+		// System.out.println(string);
+		String[] strings = string.split(",");
+		for (String string2 : strings) {
+			// System.out.println(string2);
+			int value = stringToInt(string2.split(":")[1].trim().toString());
+			result.put(string2.split(":")[0].trim(), value);
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+		String string = "{\"field\":0,\"work\":0,\"employment\":0,\"trade\":0,\"function\":0,\"dodge\":0,\"livelihood\":0,\"career\":0}";
+		LinkedHashMap<String, Integer> hhHashMap = string2LinkedHashMap(string);
+		for (Entry<String, Integer> string2 : hhHashMap.entrySet()) {
+			System.out.println(string2.getKey() + "=" + string2.getValue());
+		}
+	}
 }
+

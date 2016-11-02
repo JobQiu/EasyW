@@ -1,16 +1,17 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
     
     <title>My JSP 'test.jsp' starting page</title>
-    <script type="text/javascript" src="resource/jquery-1.7.1.js"></script>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -19,20 +20,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<script type="text/javascript">
-$(function(){
 
-	$('#captchaImage').click(function() {
-			$('#captchaImage').attr("src", "captcha.form?timestamp=" + (new Date()).valueOf());
-	}); 
-})
-
-</script>
   </head>
   
   <body>
-  <input type="text" id="captcha" name="captcha" class="text" maxlength="10" />
-              <img id="captchaImage" src="captcha.form"/>
     This is my JSP page. <br>
+    <form>
+    <%for(int i=0;i<10;i++) {%>
+    <input type="checkbox" id="<%=i%>"/> 买这个<br/>
+    <%} %>
+   
+   
+    </form>
+     --------<br>
+      learn c tag
+    <%
+  //定义一个用户数组
+  String[] zhangs={"zhang1",      "zhang2",      "zhang3",      "zhang4"};
+  request.setAttribute("zhangsan",zhangs);
+ %>
+    
+    <table border=1 width=400>
+  <tr align=center >
+   <td>内容</td>
+   <td>索引值</td>
+   <td>共访问过</td>
+   <td>是否为第一个成员</td>
+   <td>是否为最后一个成员</td>
+  </tr>
+  <c:forEach items="${zhangsan}" var="z" varStatus="s">
+   <tr align=center>
+    <td><c:out value="${z}"/></td>
+    <td><c:out value="${s.index}"/></td>
+    <td><c:out value="${s.count}"/></td>
+    <td><c:out value="${s.first}"/></td>
+    <td><c:out value="${s.last}"/></td>  
+   </tr>
+  </c:forEach>
+ </table>
+ <hr/> 
+    
   </body>
 </html>

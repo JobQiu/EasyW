@@ -3,7 +3,7 @@ package com.qcm.entity;
 public class WordEntity {
 	private Integer id;
 	private String word;
-	private String word_prototype;
+	private Integer word_prototype;
 	private String word_synonym;
 
 	public Integer getId() {
@@ -22,11 +22,11 @@ public class WordEntity {
 		this.word = word;
 	}
 
-	public String getWord_prototype() {
+	public Integer getWord_prototype() {
 		return word_prototype;
 	}
 
-	public void setWord_prototype(String word_prototype) {
+	public void setWord_prototype(Integer word_prototype) {
 		this.word_prototype = word_prototype;
 	}
 
